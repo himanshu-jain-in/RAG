@@ -39,6 +39,7 @@ This project implements a Retrieval-Augmented Generation (RAG) system using `Str
 To add a "How to Use" section to your README, you can include step-by-step instructions on how to set up, configure, and run the project on a user's local machine. Here's an example of how to structure it:
 
 ---
+https://github.com/user-attachments/assets/1630cf4a-2e43-4a76-8f07-102da52236b2
 
 ## How to Use
 
