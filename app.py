@@ -33,7 +33,6 @@ class Document:
 
             st.session_state.text_splitter=RecursiveCharacterTextSplitter(chunk_size=500,chunk_overlap=100)
             st.session_state.final_documents=st.session_state.text_splitter.split_documents(st.session_state.docs)
-            # st.write(st.session_state.final_documents)
             st.session_state.vectors=FAISS.from_documents(st.session_state.final_documents,st.session_state.embeddings)
 
         return st.session_state.vectors
@@ -71,7 +70,7 @@ with st.sidebar:
         st.write("Hugging Face Token is set")
     else: # Set default token
         st.write("Using default API key.")
-        os.environ['HUGGINGFACE_API_KEY']="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"
+        os.environ['HUGGINGFACE_API_KEY']="PUT YOUR API TOKEN HERE OR ON FRONTEND"
     # Change temperature settings
     temperature = st.slider("Temperature",min_value=0.01,max_value=1.0,step=0.1)
     # Choose model to use
@@ -87,22 +86,10 @@ def process_input(inp):
     document_chain=create_stuff_documents_chain(llm,retrieval_qa_chat_prompt)
     retriever=st.session_state.vectors.as_retriever(search_kwargs={"k": 3})
     retrieval_chain=create_retrieval_chain(retriever,document_chain)
-    # start=time.process_time()
 
     response=retrieval_chain.invoke({'input':inp})
-
     return response
 
-    # print("Response time :",time.process_time()-start)
-    # st.write(response['answer'])
-    # return response['answer']
-
-    # # With a streamlit expander
-    # with st.expander("Document Similarity Search"):
-    #     # Find the relevant chunks
-    #     for i, doc in enumerate(response["context"]):
-    #         st.write(doc.page_content)
-    #         st.write("--------------------------------")
 
 if inp := st.chat_input("Ask your question!"):
     # Display user message in chat message container
